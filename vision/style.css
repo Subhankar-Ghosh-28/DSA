@@ -1,0 +1,29 @@
+body{
+    background: linear-gradient(to left , rgb(255, 0, 255),#6200ff);
+    color: #e5e7eb;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 40px;
+}
+
+.folder {
+    cursor: pointer;
+    color: #ffffff;
+
+}
+
+.files {
+    margin-left: 20px;
+    display: none;
+    background:transparent
+}
+.files a {
+    display: block;
+    color: #0f1112;
+    text-decoration: none;
+    margin: px 0;
+    font-size: 45px;
+}
+
+.files a:hover{
+    text-decoration: underline;
+}

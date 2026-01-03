@@ -39,10 +39,10 @@ public:
         long long d = llabs((long long)divisor);
         long long ans = 0;
 
-        while (n >= d)
+        while (n >= d) // log(n)
         {
             int cnt = 0;
-            while (n >= (d << (cnt + 1)))
+            while (n >= (d << (cnt + 1))) // log(n)         TC = (log(n)*log(n))
             {
                 cnt++;
             }

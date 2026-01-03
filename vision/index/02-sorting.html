@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorting</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        outline: 0;
+      }
+
+      body {
+        background: linear-gradient(to left , rgb(255, 0, 255),#6200ff);
+        padding: 80px 100px;
+        font: 30px "Helvetica Neue", "Lucida Grande", "Arial";
+        /* background: #88ffa4;
+        color: #602121; */
+      }
+      h1 {
+        font-size: 60px;
+      }
+      ul li {
+        list-style: none;
+      }
+      
+      ul li .path {
+        padding-left: 5px;
+        font-weight: bold;
+      }
+      .folder-title {
+        color: #0a1a23;
+        text-decoration: none;
+      }
+      a:hover,ul#files li a:hover .name {
+        color: #201515;
+      }
+      body h1 {
+        margin-bottom: 15px;
+        font-size: 45px;
+      }
+      ul#files {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      ul#files li {
+        float: left;
+        width: 30%;
+        line-height:25px;
+        margin: 1px;
+      }
+      ul#files li a {
+        display: grid;
+        height: auto;
+        border: 0 solid transparent;
+        border-radius: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 15px 10px;
+      }
+      ul#files li a:focus,
+      ul#files li a:hover {
+        background: rgba(221, 221, 221, 0.65);
+        border: 1px solid #e1e1e1;
+      }
+      
+      /*views*/
+      #files span {
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-indent: 10px;
+      }
+      #files .name {
+        color: rgb(62, 21, 57);
+        background-repeat: no-repeat;
+      }
+      #files .icon .name {
+        text-indent: 28px;
+      }
+
+      /*tiles*/
+      .view-tiles .name {
+        width: 100%;
+        background-position: 8px 5px;
+      }
+      /*details*/
+      ul#files.view-details li {
+        float: none;
+        display: block;
+        width: 100%;
+      }
+      ul#files.view-details li.header {
+        height: 25px;
+        background: #000;
+        color: #fff;
+        font-weight: bold;
+      }
+      .view-details .header {
+        border-radius: 5px;
+      }
+      .view-details .name {
+        width: 100%;
+        background-position: 8px 5px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>
+        <a href="/02-sorting" class="folder-title">02-sorting</a>
+      </h1>
+      <ul id="files" class="view-tiles">
+        <li>
+          <a href="/" class="icon icon-directory" title="..">
+            <span class="name">..</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../02-sorting/bubble.cpp" class="icon icon-cpp" title="bubble.cpp">
+            <span class="name">bubble.cpp</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../02-sorting/bubble.cpp" class="icon icon-cpp" title="bubble.cpp">
+            <span class="name">bubble.cpp</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../02-sorting/bubble.cpp" class="icon icon-cpp" title="bubble.cpp">
+            <span class="name">bubble.cpp</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../02-sorting/bubble.cpp" class="icon icon-cpp" title="bubble.cpp">
+            <span class="name">bubble.cpp</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../02-sorting/bubble.cpp" class="icon icon-cpp" title="bubble.cpp">
+            <span class="name">bubble.cpp</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../02-sorting/bubble.cpp" class="icon icon-cpp" title="bubble.cpp">
+            <span class="name">bubble.cpp</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../02-sorting/bubble.cpp" class="icon icon-cpp" title="bubble.cpp">
+            <span class="name">bubble.cpp</span>
+          </a>
+        </li>
+        <li>
+          <a href="../../02-sorting/bubble.cpp" class="icon icon-cpp" title="bubble.cpp">
+            <span class="name">bubble.cpp</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
