@@ -7,7 +7,7 @@ int brute(vector<int> &arr,int k){
     for(int i =0; i<n;i++){
         for (int j = i; j < n; j++){
           int  sum =0;
-            for(int k= i;k<j; k++){
+            for(int k= i;k<=j; k++){
                 sum += arr[k];
             }
             if(sum == k) count ++;
@@ -35,7 +35,7 @@ int optimal(vector<int> &arr,int k){
     mpp[0] = 1;
     int presum= 0;
     int cnt = 0;
-    for(int i =0; i<n;i++){
+    for(int i =0; i<n;i++){            // TC = o(n) sc = o(n)
         presum += arr[i];
         int remove = presum -k;
         cnt += mpp[remove];
