@@ -1,9 +1,10 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-//number of substring of a given string of all 3 char
+// number of substring of a given string of all 3 char
 
-class Solution {
+class Solution
+{
 public:
     int bruteForce(string s, int k)
     {
@@ -14,7 +15,7 @@ public:
 
             for (int j = i; j < n; j++)
             {
-                hash[s[j]-'a'] = 1;
+                hash[s[j] - 'a'] = 1;
 
                 int hashSum = 0;
                 for (int i = 0; i < 256; i++)
@@ -22,12 +23,11 @@ public:
                     hashSum += hash[i];
                 }
 
-                if(hashSum == k){
+                if (hashSum == k)
+                {
                     cnt++;
                 }
-                
             }
-            
         }
         return cnt;
     }
@@ -35,22 +35,23 @@ public:
     int optimal(string s, int k)
     {
         int n = s.size(), cnt = 0;
-        int lastSeen[3] = {-1,-1,-1};
+        int lastSeen[3] = {-1, -1, -1};
         for (int i = 0; i < n; i++)
         {
-            lastSeen[s[i]-'a'] = i;
+            lastSeen[s[i] - 'a'] = i;
 
-            cnt = cnt + (1+*min_element(lastSeen,lastSeen+3)); // = min(lastSeen[0],min(lastSeen[1],lastSeen[2]))
+            cnt = cnt + (1 + *min_element(lastSeen, lastSeen + 3)); // = min(lastSeen[0],min(lastSeen[1],lastSeen[2]))
         }
         return cnt;
     }
 };
 
-int main(){
+int main()
+{
     string s = "bbacba";
     int k = 3;
     Solution sol;
     cout << sol.bruteForce(s, k) << endl;
     cout << sol.optimal(s, k) << endl;
-return 0;
+    return 0;
 }
