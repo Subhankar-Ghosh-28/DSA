@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+//check the fuction have subsequence with given sum;
+
 bool helper(int index, int currSum, string curr, vector<string> &result, int targetSum, string s)
 {
     if (index == s.size())
