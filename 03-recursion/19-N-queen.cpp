@@ -1,5 +1,10 @@
 #include <bits/stdc++.h>
+#include <unistd.h>
 using namespace std;
+
+#define GREEN "\033[1;32m"
+#define RESET "\033[0m"
+
 // give a n number mean nXn chessboard and put queen in every colunm and row
 class Solution
 {
@@ -13,7 +18,7 @@ public:
 
         return ans;
         // Time Complexity: O(N!*N),
-// Space Complexity: O(N^2 + N), additional space used for storing distinct boards and stack space.
+        // Space Complexity: O(N^2 + N), additional space used for storing distinct boards and stack space.
     }
 
     vector<vector<string>> optimal(int n)
@@ -23,8 +28,8 @@ public:
         vector<int> leftRow(n, 0), upperDiagonal(2 * n - 1, 0), lowerDiagonal(2 * n - 1, 0);
         optimalSolve(0, board, n, leftRow, upperDiagonal, lowerDiagonal, ans);
         return ans;
-        //Time Complexity: O(N!), we try all possible permutations of placing the queens.
-        //Space Complexity: O(N), three boolean arrays are stored to check for safety.
+        // Time Complexity: O(N!), we try all possible permutations of placing the queens.
+        // Space Complexity: O(N), three boolean arrays are stored to check for safety.
     }
 
 private:
@@ -115,60 +120,74 @@ private:
     }
 };
 
-
-void printSideBySide(const vector<vector<string>> &res, int n, int perRow = 3) {
+void printSideBySide(const vector<vector<string>> &res, int n, int perRow = 3)
+{
     int total = res.size();
 
-    for (int i = 0; i < total; i += perRow) {
+    for (int i = 0; i < total; i += perRow)
+    {
 
         // Print solution titles
-        for (int k = i; k < min(i + perRow, total); k++) {
+        for (int k = i; k < min(i + perRow, total); k++)
+        {
             cout << "Solution " << k + 1;
             cout << string(10, ' ');
         }
         cout << "\n\n";
 
         // Print board rows
-        for (int row = 0; row < n; row++) {
-            for (int k = i; k < min(i + perRow, total); k++) {
-                for (char c : res[k][row]) {
-                    cout << c << " ";
+        for (int row = 0; row < n; row++)
+        {
+            for (int k = i; k < min(i + perRow, total); k++)
+            {
+                for (char c : res[k][row])
+                {
+                    if (c == 'Q')
+                        cout << GREEN << "Q " << RESET;
+                    else
+                        cout << ". ";
                 }
                 cout << string(6, ' ');
             }
             cout << "\n";
         }
 
-        cout << "\n" << string(80, '-') << "\n\n";
+        cout << "\n"
+             << string(80, '-') << "\n\n";
     }
 }
 
 int main()
 {
     Solution sol;
-    int n ;
+    int n;
 
-    cout<<"Enter the board size: "<<endl;
-    cin>>n;
+    cout << "Enter the board size: " << endl;
+    cin >> n;
 
     auto result = sol.optimal(n);
 
-    printSideBySide(result,n,4);
+    printSideBySide(result, n, 4);
 
-    // int solNo = 1;
-    // for (auto &board : result)
-    // {
-    //     cout << "Solution " << solNo++ << ":\n";
+    /*
+    int solNo = 1;
+    for (auto &board : result)
+    {
+        cout << "Solution " << solNo++ << ":\n";
 
-    //     for (auto &row : board)
-    //     {
-    //         for (char c : row)
-    //         {
-    //             cout << c << " ";
-    //         }
-    //         cout << "\n";
-    //     }
-    //     cout << "--------------------\n";
-    // }
+        for (auto &row : board)
+        {
+            for (char c : row)
+            {
+                if (c == 'Q')
+                    cout << GREEN << "Q " << RESET;
+                else
+                    cout << ". ";
+            }
+            cout << "\n";
+        }
+        cout << "--------------------\n";
+    }
+    */
     return 0;
 }
