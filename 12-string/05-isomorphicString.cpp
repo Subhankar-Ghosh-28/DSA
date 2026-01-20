@@ -5,6 +5,7 @@ using namespace std;
 
 bool isomorphicString(string s, string t)
 {
+    if(s.size() != t.size()) return false;
     // Arrays to store last seen positions of characters in s and t
     int m1[256] = {0}, m2[256] = {0};
 
