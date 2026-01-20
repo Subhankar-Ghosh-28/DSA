@@ -19,6 +19,25 @@ void pathFinder(int i, int j, int n, string path, vector<vector<int>> visited,
         result.push_back(path);
     }
 
+    /* instited of write 4 if write this and change somthing and di = {1,0,0,-1}  dj = {0,-1,1,0} in findPAth
+
+    this chage in pathfinder
+
+    string dir = "DLRU";
+    for(int ind = 0 ; ind < 4; ind++){
+        int nexti = i + di[ind];
+        int nextj = j + dj[ind];
+
+        if(nexti >=0 && nextj >= 0 && nexti < n && nextj < n && 
+            !visited[nexti][nextj] && maze[nexti][nextj] == 1){
+            
+            visited[i][j] = 1;
+
+            pathFinder(nexti,...)
+        }
+    }
+    */
+
     // Mark the cell visited
     visited[i][j] = 1;
 
