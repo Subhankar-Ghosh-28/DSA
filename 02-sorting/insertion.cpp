@@ -3,7 +3,7 @@
 using namespace std;
 void insertion(int arr[], int x)
 {
-    for (int i = 0; i <= x; i++)
+    for (int i = 0; i < x; i++)
     {
         int j = i;
         while (j > 0 && arr[j - 1] > arr[j])
