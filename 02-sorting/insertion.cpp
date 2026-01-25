@@ -16,9 +16,11 @@ void insertion(int arr[], int x)
 
 int main()
 {
+    cout<<"enter number of element: "<<endl;
     int n;
     cin >> n;
     int arr[n];
+    cout<<"enter element: "<<endl;
     for (int i = 0; i < n; i++)
     {
         cin >> arr[i];
