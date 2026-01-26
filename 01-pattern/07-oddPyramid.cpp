@@ -1,5 +1,14 @@
 #include <iostream>
 using namespace std;
+
+/*
+    *
+   ***
+  *****
+ *******
+*********
+*/
+
 void print1(int n)
 {
   for (int i = 1; i <= n; i++)
