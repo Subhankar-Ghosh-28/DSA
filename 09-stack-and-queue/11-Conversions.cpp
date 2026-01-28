@@ -64,7 +64,8 @@ string infixToPostfix(string s)
         // for oparator
         else
         {
-            while (!st.empty() && priority(s[i]) <= priority(st.top()))
+            while (!st.empty() && (priority(s[i]) < priority(st.top()) ||
+      (priority(s[i]) == priority(st.top()) && s[i] != '^')))
             {
                 ans += st.top();
                 st.pop();
@@ -251,7 +252,7 @@ string prefixToPostfix(string s)
 
 int main()
 {
-    string s = "(m+n)*(p+q)";
+    string s = "A^B^C";
     cout << "Infix expression: " << s << endl;
     cout << "Postfix expression: " << infixToPostfix(s) << endl;
 
