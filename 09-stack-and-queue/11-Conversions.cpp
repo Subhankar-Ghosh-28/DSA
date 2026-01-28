@@ -64,9 +64,10 @@ string infixToPostfix(string s)
         // for oparator
         else
         {
-            while (!st.empty() && (priority(s[i]) < priority(st.top()) ||
-      (priority(s[i]) == priority(st.top()) && s[i] != '^')))
+            while (!st.empty() && priority(s[i]) <= priority(st.top()))
             {
+                if (s[i] == '^' && st.top() == '^')
+                    break; // right-associative
                 ans += st.top();
                 st.pop();
             }
