@@ -18,38 +18,21 @@ public:
             else
                 pos.push_back(nums[i]);
         }
+        vector<int> ans(n);
+        int i = 0, j = 0;
 
-        if (pos.size() < neg.size())
+        while (i < pos.size() && j < neg.size())
         {
-            for (int i = 0; i < pos.size(); i++)
-            {
-                nums[2 * i] = pos[i];
-                nums[2 * i + 1] = neg[i];
-            }
-
-            int index = pos.size() * 2;
-            for (int i = pos.size(); i < neg.size(); i++)
-            {
-
-                nums[index] = neg[i];
-                index++;
-            }
+            ans.push_back(pos[i++]);
+            ans.push_back(neg[j++]);
         }
-        else
-        {
-            for (int i = 0; i < neg.size(); i++)
-            {
-                nums[2 * i] = pos[i];
-                nums[2 * i + 1] = neg[i];
-            }
-            int index = neg.size() * 2;
-            for (int i = neg.size(); i < pos.size(); i++)
-            {
-                nums[index] = pos[i];
-                index++;
-            }
-        }
-        return nums;
+
+        while (i < pos.size())
+            ans.push_back(pos[i++]);
+        while (j < neg.size())
+            ans.push_back(neg[j++]);
+
+        return ans;
 
         // TC -> O(N) sc ->O(N); overall
     }
