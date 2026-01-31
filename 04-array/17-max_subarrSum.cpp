@@ -67,6 +67,40 @@ public:
         return maxSum;
         */
     }
+
+    // print the subarray
+
+    vector<int> printSubarr(vector<int> arr)
+    {
+        int n = arr.size();
+        long long maxi = LLONG_MIN, sum = 0;
+        int start = 0, ansStart = -1, ansEnd = -1;
+
+        for (int i = 0; i < n; i++)
+        {
+            if (sum == 0)
+            {
+                start = i;
+            }
+            sum += arr[i];
+            if (sum > maxi)
+            {
+                maxi = sum;
+                ansStart = start;
+                ansEnd = i;
+            }
+            if (sum < 0)
+            {
+                sum = 0;
+            }
+        }
+        vector<int> ans;
+        for (int i = ansStart; i <= ansEnd; i++)
+        {
+            ans.push_back(arr[i]);
+        }
+        return ans;
+    }
 };
 int main()
 {
@@ -77,4 +111,12 @@ int main()
     int maxSum = sol.optimal(arr);
 
     cout << "The maximum subarray sum is: " << maxSum << endl;
+
+    vector<int> subarr = sol.printSubarr(arr);
+
+    for (auto element : subarr)
+    {
+        cout << element << " ";
+    }
+    return 0;
 }
