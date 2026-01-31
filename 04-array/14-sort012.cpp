@@ -37,7 +37,7 @@ public:
         }
         return ans;
     }
-
+    //dutch national flag algo
     void optimal(vector<int> &nums)
     { // Don't change the original create a duplicate
         int low = 0, mid = 0, high = nums.size() - 1;
