@@ -41,7 +41,7 @@ public:
     {
         int n = arr.size();
         sort(arr.begin(), arr.end());
-        int longest = 1, count = 0, lastSmaller = arr[0];
+        int longest = 1, count = 1, lastSmaller = arr[0];
         for (int i = 1; i < n; i++)
         {
             if (arr[i] - 1 == lastSmaller)
