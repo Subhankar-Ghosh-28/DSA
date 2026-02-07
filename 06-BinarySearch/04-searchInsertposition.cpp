@@ -1,22 +1,30 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-//search for the index of the target value in the sorted array.
+// search for the index of the target value in the sorted array.
 
-int inssertPosition(vector<int> &arr, int k){
+int insertPosition(vector<int> &arr, int k)
+{
     int low = 0, high = arr.size() - 1;
     int ans = arr.size();
-    while(low<= high){
-        int mid = low + (high - low)/2;
+    while (low <= high)
+    {
+        int mid = low + (high - low) / 2;
 
-        if(arr[mid] >= k){
+        if (arr[mid] >= k)
+        {
             ans = mid;
             high = mid - 1;
         }
-        else low = mid + 1;
+        else
+            low = mid + 1;
     }
     return ans;
 }
-int main(){
+int main()
+{
+    vector<int> arr = {1, 2, 4, 7};
+    int x = 6;
 
-return 0;
+    cout << insertPosition(arr, x);
+    return 0;
 }
