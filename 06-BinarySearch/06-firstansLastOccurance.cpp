@@ -69,6 +69,8 @@ public:
             }
         }
         return {first, last};
+
+        // TC -> O(N)
     }
 
     vector<int> optimal(vector<int> &nums, int k)
@@ -79,6 +81,8 @@ public:
 
         int last = upperBound(nums, k);
         return {first, last};
+
+        // TC -> O(log n)
     }
 };
 
