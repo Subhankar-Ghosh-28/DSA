@@ -25,7 +25,13 @@ int optimal(vector<int> &arr, int n, int k)
         // if mid points the target
         if (arr[mid] == k)
             return true;
-
+        // Edge case: all three are equal, we cannot determine which side is sorted
+        if (arr[low] == arr[mid] && arr[mid] == arr[high])
+        {
+            low++;
+            high--;
+            continue;
+        }
         // if left part is sorted:
         if (arr[low] <= arr[mid])
         {
