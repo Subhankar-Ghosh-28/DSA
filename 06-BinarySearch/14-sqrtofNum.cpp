@@ -18,6 +18,7 @@ public:
 
     int optimal(int n)
     {
+        if(n < 4) return 1;
         int low = 1, high = n / 2, ans = 0;
 
         while (low <= high)
