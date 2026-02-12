@@ -34,18 +34,22 @@ int main()
         col_end--;
 
         // row end
-        for (int col = col_end; col >= col_start; col--)
-        {
-            cout << arr[row_end][col] << " ";
+        if (row_start <= row_end){
+            for (int col = col_end; col >= col_start; col--)
+            {
+                cout << arr[row_end][col] << " ";
+            }
+            row_end--;
         }
-        row_end--;
 
         // col start
-        for (int row = row_end; row >= row_start; row--)
-        {
-            cout << arr[row][col_start] << " ";
+        if (col_start <= col_end) {
+            for (int row = row_end; row >= row_start; row--)
+            {
+                cout << arr[row][col_start] << " ";
+            }
+            col_start++;
         }
-        col_start++;
     }
     return 0;
 }
