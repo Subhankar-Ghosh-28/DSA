@@ -92,6 +92,7 @@ public:
                 }
             }
         }
+        // tc ->O(N*M)   sc ->O(M+N)
     }
 
     vector<vector<int>> optimal(vector<vector<int>> &matrix)
