@@ -4,9 +4,9 @@ using namespace std;
 class Solution
 {
 private:
-    int calculateHours(vector<int> &nums, int hour)
+    long long calculateHours(vector<int> &nums, int hour)
     {
-        int totalHour = 0;
+        long long totalHour = 0;
 
         for (int pile : nums)
         {
@@ -27,7 +27,7 @@ public:
 
         for (int i = 1; i <= maxval; i++)
         {
-            int hour = calculateHours(nums, i);
+            long long hour = calculateHours(nums, i);
 
             if (hour <= totalHour)
             {
@@ -51,14 +51,14 @@ public:
                 maxPile = pile;
         }
 
-        int low = 0, high = maxPile;
+        int low = 1, high = maxPile;
         int ans = maxPile;
 
         while (low <= high)
         {
             int mid = low + (high - low) / 2;
 
-            int hour = calculateHours(nums, mid);
+            long long hour = calculateHours(nums, mid);
 
             if (hour <= totalHour)
             {
