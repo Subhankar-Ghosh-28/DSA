@@ -23,6 +23,8 @@ public:
 
     int optimal(int n, int m)
     {
+        if (m == 0) return 0;           // 0^n = 0
+        if (n == 0) return (m == 1) ? 1 : -1;
         int low = 1, high = m;
         while (low <= high)
         {
@@ -40,7 +42,7 @@ public:
             else if (ans > m)
                 high = mid - 1;
             else
-                low = mid - 1;
+                low = mid + 1;
         }
         return -1;
         // TC -> O(log M);
