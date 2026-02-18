@@ -22,6 +22,22 @@ public:
 
     int optimal(vector<int> &nums, int k)
     {
+        int n = nums.size();
+        int low = 0, high = n - 1;
+
+        while (low <= high)
+        {
+            int mid = low + (high - low) / 2;
+            int missing = nums[high] - (mid + 1);
+
+            if (missing < k)
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+        return low + k; // high + 1 + k;   ans = arr[higg] + more,, more = k - (arr[high] - (high+1));
+
+        // TC -> O(log N);
     }
 };
 
@@ -31,7 +47,7 @@ int main()
     int k = 4;
 
     Solution finder;
-    int ans = finder.bruteForce(vec, k);
+    int ans = finder.optimal(vec, k);
 
     cout << "The missing number is: " << ans << "\n";
     return 0;
