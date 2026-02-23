@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+// allocate the book to ‘m’ students such that the maximum number of pages assigned to a student is minimum.
+// min(max) type;
 class Solution
 {
 private:
@@ -44,6 +45,8 @@ public:
             }
         }
         return low;
+
+        //TC -> O(n)* O(sum(arr[])-max(arr[])+1))
     }
 
     int optimal(vector<int> &nums, int m)
@@ -69,6 +72,8 @@ public:
                 low = mid + 1;
         }
         return ans;
+
+        // TC -> O(n)* O(log (sum(arr[])-max(arr[])+1)))
     }
 };
 
