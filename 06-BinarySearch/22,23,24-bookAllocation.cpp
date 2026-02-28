@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 // allocate the book to ‘m’ students such that the maximum number of pages assigned to a student is minimum.
+// split the array ‘A’ into ‘K’ non-empty subarrays such that the largest sum of any subarray is minimized.
+// painter partision
 // min(max) type;
 class Solution
 {
