@@ -1,15 +1,15 @@
-class Node {
+class TreeNode {
     public int data;
-    Node left;
-    Node right;
+    TreeNode left;
+    TreeNode right;
 
-    public Node(int key) {
+    public TreeNode(int key) {
         data = key;
     }
 }
 
 class Recursive {
-    public void PreOrder(Node root) {
+    public void PreOrder(TreeNode root) {
         if (root == null)
             return;
 
@@ -18,7 +18,7 @@ class Recursive {
         PreOrder(root.right);
     }
 
-    void Inorder(Node root) {
+    void Inorder(TreeNode root) {
         if (root == null)
             return;
 
@@ -27,7 +27,7 @@ class Recursive {
         Inorder(root.right);
     }
 
-    void PostOrder(Node root) {
+    void PostOrder(TreeNode root) {
         if (root == null)
             return;
 
@@ -40,15 +40,15 @@ class Recursive {
 public class traverse01 {
 
     public static void main(String[] args) {
-        Node root = new Node(1);
+        TreeNode root = new TreeNode(1);
 
-        root.left = new Node(2);
-        root.right = new Node(3);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
 
-        root.left.left = new Node(4);
-        root.left.right = new Node(5);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
 
-        root.right.left = new Node(8);
+        root.right.left = new TreeNode(8);
 
         Recursive sol = new Recursive();
 
