@@ -67,8 +67,7 @@ public class levelOrder {
             for (Integer y : x) {
                 System.out.print(y + " ");
             }
-            System.out.println();
         }
-
+        System.out.println();
     }
 }
