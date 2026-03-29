@@ -1,3 +1,8 @@
 .vscode/
 .cph/
 *.exe
+*.class
+bin/
+out/
+build/
+*.log
