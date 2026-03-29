@@ -19,35 +19,59 @@ public:
 
 class Recursive
 {
+private:
+    void preHelper(Node *root, vector<int> &arr)
+    {
+        if (root == NULL)
+            return;
+        arr.push_back(root->data);
+        preHelper(root->left, arr);
+        preHelper(root->right, arr);
+    }
+
+    void inHelper(Node *root, vector<int> &arr)
+    {
+        if (root == NULL)
+            return;
+
+        inHelper(root->left, arr);
+        arr.push_back(root->data);
+        inHelper(root->right, arr);
+    }
+
+    void postHelper(Node *root, vector<int> &arr)
+    {
+        if (root == NULL)
+            return;
+
+        postHelper(root->left, arr);
+        postHelper(root->right, arr);
+        arr.push_back(root->data);
+    }
+
 public:
-    void PreOrder(Node *root)
+    vector<int> preOrder(Node *root)
     {
-        if (root == NULL)
-            return;
+        vector<int> ans;
 
-        cout << root->data << " ";
-        PreOrder(root->left);
-        PreOrder(root->right); //
+        preHelper(root, ans);
+        return ans;
     }
 
-    void Inorder(Node *root)
+    vector<int> inOrder(Node *root)
     {
-        if (root == NULL)
-            return;
+        vector<int> ans;
 
-        Inorder(root->left);
-        cout << root->data << " ";
-        Inorder(root->right);
+        inHelper(root, ans);
+        return ans;
     }
 
-    void PostOrder(Node *root)
+    vector<int> postOrder(Node *root)
     {
-        if (root == NULL)
-            return;
+        vector<int> ans;
 
-        PostOrder(root->left);
-        PostOrder(root->right);
-        cout << root->data << " ";
+        postHelper(root, ans);
+        return ans;
     }
 };
 
@@ -91,6 +115,119 @@ public:
             ans.push_back(level);
         }
         return ans;
+
+        // TC-> O(N)  sc -> O(n)
+    }
+};
+
+class Iterative
+{
+public:
+    vector<int> preOrder(Node *root)
+    {
+        vector<int> ans;
+
+        if (root == NULL)
+            return ans;
+
+        stack<Node *> st;
+        st.push(root);
+
+        while (!st.empty())
+        {
+
+            Node *node = st.top();
+            st.pop();
+
+            ans.push_back(node->data);
+
+            if (node->right != nullptr)
+            {
+                st.push(node->right);
+            }
+            if (node->left != nullptr)
+            {
+                st.push(node->left);
+            }
+        }
+        return ans;
+    }
+
+    // TC-> O(N)  sc -> O(h)
+
+    vector<int> inOrder(Node *root)
+    {
+        stack<Node *> st;
+        Node *node = root;
+
+        vector<int> ans;
+
+        while (true)
+        {
+            if (node != NULL)
+            {
+                st.push(node);
+                node = node->left;
+            }
+
+            else
+            {
+                if (st.empty())
+                    break;
+
+                else
+                {
+                    node = st.top();
+                    st.pop();
+
+                    ans.push_back(node->data);
+                    node = node->right;
+                }
+            }
+        }
+        return ans; // TC-> O(N)  sc -> O(h)
+    }
+
+    vector<int> postOrder(Node *root)
+    {
+        stack<Node *> st;
+        Node *curr = root;
+
+        vector<int> ans;
+
+        while (curr != NULL || !st.empty())
+        {
+            if (curr != NULL)
+            {
+                st.push(curr);
+                curr = curr->left;
+            }
+            else
+            {
+                Node *temp = st.top()->right;
+                if (temp == NULL)
+                {
+                    temp = st.top();
+                    st.pop();
+
+                    ans.push_back(temp->data);
+
+                    while (!st.empty() && temp == st.top()->right)
+                    {
+                        temp = st.top(); // <---- O(N)
+                        st.pop();
+                        ans.push_back(temp->data);
+                    }
+                }
+                else
+                {
+                    curr = temp;
+                }
+            }
+        }
+        return ans;
+
+        // TC-> O(N+N)  sc -> O(h)
     }
 };
 
@@ -105,27 +242,36 @@ int main()
     root->left->left = new Node(4);
     root->left->right = new Node(5);
 
-    root->right->left = new Node(8);
+    root->right->left = new Node(6);
 
-    Recursive sol;
+    Iterative sol;
 
     cout << "Pre-order traversal : ";
-    sol.PreOrder(root);
+    for (auto node : sol.preOrder(root))
+    {
+        cout << node << " ";
+    }
     cout << endl;
 
     cout << "In-order traversal : ";
-    sol.Inorder(root);
+    for (auto node : sol.inOrder(root))
+    {
+        cout << node << " ";
+    }
     cout << endl;
 
     cout << "Post-order traversal : ";
-    sol.PostOrder(root);
+    for (auto node : sol.postOrder(root))
+    {
+        cout << node << " ";
+    }
     cout << endl;
 
     LevelOrderTravarse solu;
 
     vector<vector<int>> result = solu.LevelOrder(root);
 
-    cout << "Level Order Traversal of Tree: ";
+    cout << "Level Order Traversal of Tree: " << endl;
 
     for (auto x : result)
     {
@@ -133,7 +279,7 @@ int main()
         {
             cout << y << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
 
     return 0;
