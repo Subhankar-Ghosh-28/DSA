@@ -326,6 +326,9 @@ public:
         result.push_back(post);
 
         return result;
+
+        // TC -> O(3N) every node use 3 times
+        // SC -> O(4N) 1 stack and 3 vector
     }
 };
 
