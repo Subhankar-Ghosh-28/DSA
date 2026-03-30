@@ -9,12 +9,9 @@ public:
     Node *right;
 
 public:
-    Node(int key)
-    {
-        data = key;
-        left = nullptr;
-        right = nullptr;
-    }
+    Node(int key) : data(key), left(nullptr), right(nullptr) {}
+
+    Node() : data(0), left(nullptr), right(nullptr) {}
 };
 
 class Recursive
@@ -228,6 +225,43 @@ public:
         return ans;
 
         // TC-> O(N+N)  sc -> O(h)
+    }
+
+    // postorder using two stack
+
+    vector<int> postOrder2stack(Node *root)
+    {
+
+        stack<Node *> st1, st2;
+        vector<int> ans;
+
+        st1.push(root);
+
+        while (!st1.empty())
+        {
+            Node *node = st1.top();
+            st1.pop();
+
+            st2.push(node);
+
+            if (node->left != nullptr)
+            {
+                st1.push(node->left);
+            }
+            if (node->right != nullptr)
+            {
+                st1.push(node->right);
+            }
+        }
+
+        while (!st2.empty())
+        {
+            ans.push_back(st2.top()->data);
+            st2.pop();
+        }
+        return ans;
+
+        // TC-> O(N)  sc -> O(2n)
     }
 };
 
