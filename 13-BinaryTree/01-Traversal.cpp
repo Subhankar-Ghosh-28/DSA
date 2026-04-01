@@ -72,7 +72,7 @@ public:
     }
 };
 
-class LevelOrderTravarse
+class LevelOrderTravarse // also known as BFS
 {
 public:
     vector<vector<int>> LevelOrder(Node *root)

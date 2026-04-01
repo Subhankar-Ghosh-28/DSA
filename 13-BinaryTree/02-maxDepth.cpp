@@ -14,7 +14,7 @@ public:
 class Solution
 {
 public:
-    int maxDepth(Node *root)
+    int maxDepth(Node *root) // also known as DFS
     {
         if (root == NULL)
         {
