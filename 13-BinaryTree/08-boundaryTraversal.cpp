@@ -83,6 +83,7 @@ public:
         addLeftBoundary(root, result);
         addLeaves(root, result);
         addRightboundaryReverse(root, result);
+        return result;
     }
     void printResult(const vector<int> &result)
     {
