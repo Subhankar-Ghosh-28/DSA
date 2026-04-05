@@ -15,6 +15,13 @@ public:
         right = nullptr;
     }
 };
+/*
+1. add left most nodes
+2. then leaf nodes
+3. add right most from reverse order
+
+this is for anti clock wise traverse
+*/
 
 class Solution
 {
