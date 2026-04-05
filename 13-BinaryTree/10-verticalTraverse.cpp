@@ -32,7 +32,7 @@ void printResult(const vector<int> &result)
 class verticalTraverse
 {
 public:
-    vector<vector<int>> antiClock(Node *root)
+    vector<vector<int>> verticaltraverse(Node *root)
     {
         vector<vector<int>> ans;
 
@@ -103,7 +103,7 @@ int main()
     verticalTraverse solution;
 
     // Call vertical order traversal
-    vector<vector<int>> verticalTraversal = solution.antiClock(root);
+    vector<vector<int>> verticalTraversal = solution.verticaltraverse(root);
 
     // Print result
     cout << "Vertical Traversal:" << endl;
