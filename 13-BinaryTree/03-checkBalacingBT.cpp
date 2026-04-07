@@ -37,7 +37,7 @@ public:
         int lh = getHeight(root->left);
         int rh = getHeight(root->right);
 
-        if (abs(lh - rh) <= 1 && bruteForce(root->left) && bruteForce(root->left))
+        if (abs(lh - rh) <= 1 && bruteForce(root->left) && bruteForce(root->right))
         {
             return true;
         }
