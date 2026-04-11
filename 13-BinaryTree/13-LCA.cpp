@@ -36,7 +36,7 @@ public:
             return Left;
         return root;
 
-        //TC-> O(N) SC->O(N) store the data and auxilary space
+        // TC-> O(N) SC->O(N) store the data and auxilary space
     }
 };
 
