@@ -35,6 +35,8 @@ public:
         if (Right == NULL)
             return Left;
         return root;
+
+        //TC-> O(N) SC->O(N) store the data and auxilary space
     }
 };
 
