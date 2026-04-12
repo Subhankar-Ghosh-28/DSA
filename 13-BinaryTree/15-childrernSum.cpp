@@ -36,11 +36,12 @@ public:
 
         if (child >= root->data)
             root->data = child;
-        else if (root->left)
+        else {
+            if (root->left)
             root->left->data = root->data;
-        if (root->right)
+            if (root->right)
             root->right->data = root->data;
-
+        }
         changeBT(root->left);
         changeBT(root->right);
 
@@ -53,6 +54,8 @@ public:
 
         if (root->left || root->right)
             root->data = total;
+        
+        // TC->O(N), SC -> O(N) skewed bt
     }
 };
 
