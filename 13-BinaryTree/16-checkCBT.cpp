@@ -48,6 +48,8 @@ public:
             }
         }
         return true;
+
+        // TC-> O(N) sc-> O(N)
     }
 };
 

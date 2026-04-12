@@ -29,6 +29,8 @@ class Solution
             root = root->left;
         }
         return height;
+
+        // TC -> O(log N), SC -> O(log N)
     }
 
     int heightRight(Node *root)
@@ -40,6 +42,8 @@ class Solution
             root = root->right;
         }
         return height;
+
+        // TC -> O(log N), SC -> O(log N)
     }
 
 public:
@@ -84,6 +88,8 @@ public:
             return (1 << lh) - 1;
 
         return 1 + countNode(root->left) + countNode(root->right);
+
+        // TC -> O(log N)*(log N), SC -> O(N)
     }
 
     int cntNodeCBT(Node *root)
@@ -95,6 +101,8 @@ public:
         int x = countNode(root);
 
         return x;
+
+        // TC ->O(N) + O(log N)*(log N), SC -> O(N)
     }
 };
 
