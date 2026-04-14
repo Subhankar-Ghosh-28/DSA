@@ -52,7 +52,7 @@ public:
 
         return root;
 
-        // TC-> O(N) sc-> O(N)
+        // TC-> O(N) * O(log N) for hash optional,,, sc-> O(N)
     }
 };
 
@@ -91,7 +91,7 @@ public:
 
         return root;
 
-        // TC-> O(N) sc-> O(N)
+        // TC-> O(N) * O(log N) for hash optional,,, sc-> O(N)
     }
 };
 
