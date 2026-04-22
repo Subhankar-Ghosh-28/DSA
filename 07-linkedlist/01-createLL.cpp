@@ -24,7 +24,7 @@ public:
 
 int main()
 {
-    Node* head = new Node(5);
+    Node *head = new Node(5);
 
     return 0;
 }
