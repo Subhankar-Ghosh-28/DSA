@@ -53,6 +53,19 @@ public:
 
         // TC -> O(N) ,, SC-> O(N)
     }
+
+    Node *insertNodeRecursive(Node *root, int val)
+    {
+        if (!root)
+            return new Node(val);
+
+        if (val < root->data)
+            root->left = insertNode(root->left, val);
+        else
+            root->right = insertNode(root->right, val);
+
+        return root;
+    }
 };
 
 void printInOrder(Node *root)
