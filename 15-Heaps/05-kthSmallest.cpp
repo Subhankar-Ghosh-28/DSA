@@ -1,7 +1,8 @@
+// kth smallest = n-k+1 largest element;
+//  same as previous
+
 #include <bits/stdc++.h>
 using namespace std;
-
-// find kth largest / kth smallest = n-k+1 largest
 
 class Solution
 {
@@ -24,7 +25,7 @@ class Solution
         for (int i = left + 1; i <= right; i++)
         {
 
-            if (nums[i] > pivot)
+            if (nums[i] < pivot)
             {
                 swap(nums[ind], nums[i]);
 
@@ -48,11 +49,11 @@ public:
 
         for (int i = k; i < nums.size(); i++)
         {
-            // Check if a new larger element is found
-            if (nums[i] > pq.top())
+            // Check if a new smallest element is found
+            if (nums[i] < pq.top())
             {
 
-                pq.pop(); // remove the smallest from the min-heap
+                pq.pop(); // remove the largest from the min-heap
 
                 // Add the current element to the min-heap
                 pq.push(nums[i]);
@@ -71,7 +72,7 @@ public:
 
         int left = 0, right = nums.size() - 1;
 
-        // Until the Kth largest element is found
+        // Until the Kth smallest element is found
         while (true)
         {
             // Get the pivot index
@@ -102,12 +103,13 @@ public:
 int main()
 {
     vector<int> nums = {-5, 4, 1, 2, -3};
-    int k = 5;
+    int k = 2;
 
     Solution sol;
 
     int ans = sol.optimal(nums, k);
 
-    cout << "The Kth largest element in the array is: " << ans << endl;
+    cout << "The Kth smallest element in the array is: " << ans << endl;
+
     return 0;
 }
