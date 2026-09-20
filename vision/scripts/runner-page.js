@@ -3,6 +3,11 @@ const runnerBase =
 const $ = (selector) => document.querySelector(selector);
 let sourceFiles = [];
 let visibleFiles = [];
+let codeEditor = null;
+
+function getCode() {
+  return codeEditor ? codeEditor.getValue() : $("#codeEditor").value;
+}
 
 function displayFileName(file) {
   const stem = file.name.replace(/\.[^.]+$/, "").replace(/^\d+[._-]*/, "");
@@ -44,7 +49,9 @@ async function loadSelectedFile() {
     `${runnerBase}/api/file?path=${encodeURIComponent(path)}`,
   );
   $("#selectedPath").textContent = file.path;
-  $("#codeEditor").value = await response.text();
+  const code = await response.text();
+  if (codeEditor) codeEditor.setValue(code);
+  else $("#codeEditor").value = code;
 }
 
 $("#runnerSearch").addEventListener("input", fillFiles);
@@ -62,7 +69,7 @@ $("#runCodeButton").addEventListener("click", async () => {
     const response = await fetch(`${runnerBase}/api/run`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ path, code: $("#codeEditor").value }),
+      body: JSON.stringify({ path, code: getCode(), input: $("#stdinInput").value }),
     });
     const result = await response.json();
     $("#runnerOutput").textContent =
@@ -87,3 +94,14 @@ fetch(`${runnerBase}/api/files`)
     $("#runnerOutput").textContent =
       "Start the runner with: node vision/runner-server.js";
   });
+
+if (window.CodeMirror) {
+  codeEditor = CodeMirror.fromTextArea($("#codeEditor"), {
+    mode: "text/x-c++src",
+    theme: "material-palenight",
+    lineNumbers: true,
+    indentUnit: 4,
+    tabSize: 4,
+    lineWrapping: false,
+  });
+}

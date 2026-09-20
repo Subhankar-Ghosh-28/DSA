@@ -31,7 +31,7 @@ function send(response, status, body, type = "application/json") {
   response.end(type === "application/json" ? JSON.stringify(body) : body);
 }
 
-function runCode(code, extension, callback) {
+function runCode(code, extension, input, callback) {
   const tempFolder = fs.mkdtempSync(path.join(os.tmpdir(), "dsa-runner-"));
   const sourceFile = path.join(tempFolder, `main${extension === ".c" ? ".c" : ".cpp"}`);
   const executable = path.join(tempFolder, process.platform === "win32" ? "program.exe" : "program");
@@ -48,6 +48,8 @@ function runCode(code, extension, callback) {
     let output = "";
     program.stdout.on("data", (chunk) => { output += chunk; });
     program.stderr.on("data", (chunk) => { output += chunk; });
+    if (input) program.stdin.write(input);
+    program.stdin.end();
     program.on("error", (error) => callback(`Runtime error: ${error.message}`));
     program.on("close", (exitCode) => callback(`${output}${output && !output.endsWith("\n") ? "\n" : ""}Exit code: ${exitCode}`));
   });
@@ -67,7 +69,7 @@ const server = http.createServer((request, response) => {
       try {
         const payload = JSON.parse(body);
         safePath(payload.path);
-        runCode(payload.code || "", path.extname(payload.path), (output) => send(response, 200, { output }));
+        runCode(payload.code || "", path.extname(payload.path), payload.input || "", (output) => send(response, 200, { output }));
       } catch (error) { send(response, 400, { error: error.message }); }
     });
     return;
@@ -79,7 +81,9 @@ const server = http.createServer((request, response) => {
     "/vision/topic.html": "/vision/pages/topic.html",
     "/vision/runner.html": "/vision/pages/runner.html",
   };
-  const assetAlias = requestUrl.pathname.startsWith("/styles/") || requestUrl.pathname.startsWith("/scripts/")
+  const assetAlias = requestUrl.pathname === "/problems.json"
+    ? "/vision/problems.json"
+    : requestUrl.pathname.startsWith("/styles/") || requestUrl.pathname.startsWith("/scripts/")
     ? `/vision/${requestUrl.pathname.slice(1)}`
     : requestUrl.pathname;
   const requested = aliases[requestUrl.pathname] || assetAlias;
@@ -90,4 +94,17 @@ const server = http.createServer((request, response) => {
   send(response, 200, fs.readFileSync(filePath), types[path.extname(filePath)] || "application/octet-stream");
 });
 
-server.listen(port, () => console.log(`DSA runner: http://localhost:${port}/vision/`));
+if (require.main === module) {
+  server.on("error", (error) => {
+    if (error.code === "EADDRINUSE") {
+      console.error(`Port ${port} is already in use. Open http://localhost:${port}/vision/ or stop the existing server before starting another.`);
+      process.exitCode = 1;
+      return;
+    }
+    console.error(error);
+    process.exitCode = 1;
+  });
+  server.listen(port, () => console.log(`DSA runner: http://localhost:${port}/vision/`));
+}
+
+module.exports = { discoverFiles, safePath, server };

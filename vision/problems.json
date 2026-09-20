@@ -1,0 +1,95 @@
+{
+  "concepts": [
+    {
+      "keys": ["bubble"],
+      "category": "Sorting",
+      "difficulty": "Easy",
+      "problem": "Compare neighboring values and repeatedly move the largest unsorted value to the end.",
+      "solution": "Scan adjacent pairs, swap inverted values, and stop early when a pass makes no swap. Time O(n²), space O(1)."
+    },
+    {
+      "keys": ["insertion"],
+      "category": "Sorting",
+      "difficulty": "Easy",
+      "problem": "Insert each new value into its correct position in the sorted prefix.",
+      "solution": "Shift larger prefix values right until the insertion point is found. Time O(n²), space O(1)."
+    },
+    {
+      "keys": ["selection"],
+      "category": "Sorting",
+      "difficulty": "Easy",
+      "problem": "Select the smallest remaining value and place it at the next output position.",
+      "solution": "Search the unsorted suffix for the minimum and swap once per position. Time O(n²), space O(1)."
+    },
+    {
+      "keys": ["merge"],
+      "category": "Sorting",
+      "difficulty": "Medium",
+      "problem": "Sort a sequence by splitting it, solving both halves, and merging ordered results.",
+      "solution": "Use divide and conquer with two pointers during merge. Time O(n log n), space O(n)."
+    },
+    {
+      "keys": ["quick"],
+      "category": "Sorting",
+      "difficulty": "Medium",
+      "problem": "Partition values around a pivot so recursive ranges become smaller.",
+      "solution": "Place elements on the correct side of a pivot, then recurse on both partitions. Average O(n log n), stack O(log n)."
+    },
+    {
+      "keys": ["binary", "search"],
+      "category": "Binary Search",
+      "difficulty": "Easy",
+      "problem": "Find a target or boundary in sorted data without scanning every element.",
+      "solution": "Maintain a closed search interval and discard half after each comparison. Time O(log n), space O(1)."
+    },
+    {
+      "keys": ["two", "sum"],
+      "category": "Arrays",
+      "difficulty": "Easy",
+      "problem": "Find two values whose combined result matches a target.",
+      "solution": "Store previously seen values in a hash map and look up each complement. Average O(n), space O(n)."
+    },
+    {
+      "keys": ["subsequence"],
+      "category": "Recursion",
+      "difficulty": "Medium",
+      "problem": "Generate or count valid subsequences while preserving element order.",
+      "solution": "At each index, branch into take and skip decisions, then combine valid states."
+    },
+    {
+      "keys": ["tree", "traversal"],
+      "category": "Binary Tree",
+      "difficulty": "Medium",
+      "problem": "Visit every node in the required order and process its subtree results.",
+      "solution": "Choose recursive or stack-based DFS/BFS according to the traversal order. Time O(n), space O(h)."
+    },
+    {
+      "keys": ["heap", "kth"],
+      "category": "Heaps",
+      "difficulty": "Medium",
+      "problem": "Maintain the best k candidates while processing a stream or collection.",
+      "solution": "Use a min or max heap so insertion and removal stay O(log k); total O(n log k)."
+    },
+    {
+      "keys": ["window", "substring"],
+      "category": "Sliding Window",
+      "difficulty": "Medium",
+      "problem": "Find the longest or shortest valid contiguous range under a constraint.",
+      "solution": "Expand the right edge, repair the constraint from the left, and track the best range. Time O(n)."
+    },
+    {
+      "keys": ["parenthes", "bracket"],
+      "category": "Stack",
+      "difficulty": "Easy",
+      "problem": "Determine whether opening and closing symbols form a valid nesting sequence.",
+      "solution": "Push openings and match every closing symbol against the stack top. Time O(n), space O(n)."
+    },
+    {
+      "keys": ["prime", "sieve"],
+      "category": "Math",
+      "difficulty": "Medium",
+      "problem": "Identify prime numbers or factor a value efficiently.",
+      "solution": "Mark multiples from each unmarked base up to the square root. Sieve time O(n log log n)."
+    }
+  ]
+}

@@ -194,6 +194,7 @@
   font-size: 27px;
   letter-spacing: -1px;
 }
+.problem-tags { display:flex; gap:7px; margin-top:9px; }.category-tag,.difficulty-tag { display:inline-flex; align-items:center; padding:4px 7px; border-radius:4px; font:9px "DM Mono",monospace; }.category-tag { color:#26715b; background:#e4f1e6; }.difficulty-easy { color:#28714e; background:#ddf1e1; }.difficulty-medium { color:#986c18; background:#f8edcf; }.difficulty-hard { color:#ad4c43; background:#f9dfdb; }
 .review-toggle {
   display: flex;
   align-items: center;

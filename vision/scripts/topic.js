@@ -8,6 +8,8 @@ const progressKey = "striver-dsa-file-progress";
 let files = [];
 let selectedFile = null;
 let reviewed = JSON.parse(localStorage.getItem(progressKey) || "{}");
+const studyDatesKey = "striver-dsa-study-dates";
+let studyDates = JSON.parse(localStorage.getItem(studyDatesKey) || "[]");
 
 const topicNames = {
   "01-pattern": [
@@ -67,7 +69,8 @@ const topicNames = {
   ],
 };
 
-const concepts = [
+let concepts = [];
+/*
   {
     keys: ["bubble"],
     problem:
@@ -183,7 +186,7 @@ const concepts = [
     solution:
       "Mark multiples from each unmarked base up to the square root. Sieve time O(n log log n).",
   },
-];
+]; */
 
 function getConcept(file) {
   const normalized = file.name.toLowerCase().replace(/[_-]/g, " ");
@@ -194,6 +197,8 @@ function getConcept(file) {
       problem: `Study the ${file.name.replace(/\.[^.]+$/, "").replace(/[_-]/g, " ")} problem and identify its input, output, and constraints.`,
       solution:
         "Read the implementation line by line, write down the invariant it maintains, then verify the time and space complexity with a small example.",
+      category: topicNames[folder]?.[0] || "DSA",
+      difficulty: "Medium",
     }
   );
 }
@@ -247,8 +252,30 @@ function renderList() {
   updateTracking();
 }
 
+function isReviewed(path) {
+  return Boolean(reviewed[path]);
+}
+
+function recordStudyDate() {
+  const today = new Date().toISOString().slice(0, 10);
+  if (!studyDates.includes(today)) studyDates.push(today);
+  studyDates.sort();
+  localStorage.setItem(studyDatesKey, JSON.stringify(studyDates));
+}
+
+function currentStreak() {
+  const dates = new Set(studyDates);
+  let cursor = new Date();
+  let streak = 0;
+  while (dates.has(cursor.toISOString().slice(0, 10))) {
+    streak += 1;
+    cursor.setUTCDate(cursor.getUTCDate() - 1);
+  }
+  return streak;
+}
+
 function updateTracking() {
-  const reviewedCount = files.filter((file) => reviewed[file.path]).length;
+  const reviewedCount = files.filter((file) => isReviewed(file.path)).length;
   const total = files.length;
   const percent = total ? Math.round((reviewedCount / total) * 100) : 0;
   $("#trackingReviewed").textContent = reviewedCount;
@@ -256,6 +283,7 @@ function updateTracking() {
   $("#trackingTotal").textContent = total;
   $("#trackingPercent").textContent = `${percent}%`;
   $("#trackingProgress").style.width = `${percent}%`;
+  $("#trackingStreak").textContent = currentStreak();
 }
 
 async function chooseFile(file) {
@@ -269,6 +297,9 @@ async function chooseFile(file) {
   $("#selectedPath").textContent = file.path;
   $("#problemDescription").textContent = concept.problem;
   $("#problemSolution").textContent = concept.solution;
+  $("#problemCategory").textContent = concept.category;
+  $("#problemDifficulty").textContent = concept.difficulty;
+  $("#problemDifficulty").className = `difficulty-tag difficulty-${concept.difficulty.toLowerCase()}`;
   $("#reviewedCheck").checked = Boolean(reviewed[file.path]);
   renderList();
 }
@@ -280,6 +311,8 @@ function setCodeExpanded(expanded) {
 }
 
 async function loadTopic() {
+  const metadata = await fetch("../problems.json").then((response) => response.json());
+  concepts = metadata.concepts || [];
   const response = await fetch(`${runnerBase}/api/files`);
   files = (await response.json()).filter((file) =>
     file.path.startsWith(`${folder}/`),
@@ -307,7 +340,10 @@ $("#problemList").addEventListener("click", (event) => {
 });
 $("#reviewedCheck").addEventListener("change", (event) => {
   if (!selectedFile) return;
-  if (event.target.checked) reviewed[selectedFile.path] = true;
+  if (event.target.checked) {
+    reviewed[selectedFile.path] = { completedAt: new Date().toISOString() };
+    recordStudyDate();
+  }
   else delete reviewed[selectedFile.path];
   localStorage.setItem(progressKey, JSON.stringify(reviewed));
   renderList();
