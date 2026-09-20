@@ -1,30 +1,155 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>DSA</title>
-</head>
-<body>
-    <header>
-        <h1>DSA cheat code</h1>
-    </header>
-
-    <main>
-        <h2 class="folder" onclick="toggleFolder()">Pattern</h2>
-        <div id="patternFiles" class="files"></div>
-
-        <a href="/02-sorting/"><h2>Sorting</h2></a>
-        <a href="/03-recursion/"><h2>Recursion</h2></a>
-        <a href="/10-hash/"><h2>Hash</h2></a>
-        <a href="/04-array/"><h2>Array</h2></a>
-        <a href="/05-vector/"><h2>Vector</h2></a>
-        <a href="/06-BinarySearch/"><h2>Binary Search</h2></a>
-        <a href="/07-linkedlist/"><h2>Linked List</h2></a>
-        <a href="/08-bit manipulation/"><h2>Bit manipulation</h2></a>
-        <a href="/09-stack-and-queue/"><h2>Stack and Queue</h2></a>
-    </main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Striver's DSA sheet</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#top"
+          ><span class="brand-mark">S</span
+          ><span><strong>striver</strong><small>DSA sheet</small></span></a
+        >
+        <nav class="side-nav" aria-label="Main navigation">
+          <a class="nav-link active" href="#overview"
+            ><span class="nav-icon">◈</span>Overview</a
+          >
+          <a class="nav-link" href="#topics"
+            ><span class="nav-icon">▦</span>All topics</a
+          >
+          <a class="nav-link" href="#roadmap"
+            ><span class="nav-icon">↗</span>Roadmap</a
+          >
+        </nav>
+        <div class="sidebar-footer">
+          <span class="status-dot"></span
+          ><span
+            ><strong>Local progress</strong
+            ><small>Saved in this browser</small></span
+          >
+        </div>
+      </aside>
+      <main class="content" id="top">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">STUDY CONSOLE / <span id="todayLabel"></span></p>
+            <h1>Build the habit.<br /><em>Master the patterns.</em></h1>
+          </div>
+          <button class="reset-button" id="resetProgress" type="button">
+            ↺ <span>Reset progress</span>
+          </button>
+        </header>
+        <section
+          class="hero-progress"
+          id="overview"
+          aria-labelledby="progress-title"
+        >
+          <div class="progress-copy">
+            <span class="section-kicker">YOUR PROGRESS</span>
+            <h2 id="progress-title">
+              <span id="completedCount">0</span> /
+              <span id="totalCount">0</span> problems solved
+            </h2>
+            <p>
+              Small, consistent sessions compound. Keep your streak alive by
+              solving one problem today.
+            </p>
+            <div class="progress-track large-track">
+              <span id="overallProgress"></span>
+            </div>
+            <span class="progress-caption"
+              ><strong id="overallPercent">0%</strong> complete <span>·</span>
+              <span id="remainingCount">0</span> remaining</span
+            >
+          </div>
+          <div class="ring-wrap">
+            <div class="progress-ring">
+              <strong id="ringPercent">0%</strong><span>complete</span>
+            </div>
+          </div>
+        </section>
+        <section class="stat-row" aria-label="Study statistics">
+          <div class="stat">
+            <span class="stat-icon coral">✦</span>
+            <div>
+              <span class="stat-label">Current streak</span
+              ><strong id="streakCount">0 days</strong>
+            </div>
+          </div>
+          <div class="stat">
+            <span class="stat-icon teal">✓</span>
+            <div>
+              <span class="stat-label">Solved this week</span
+              ><strong id="weekCount">0 problems</strong>
+            </div>
+          </div>
+          <div class="stat">
+            <span class="stat-icon amber">◷</span>
+            <div>
+              <span class="stat-label">Topics in motion</span
+              ><strong id="activeCount">0 active</strong>
+            </div>
+          </div>
+        </section>
+        <section
+          class="topics-section"
+          id="topics"
+          aria-labelledby="topics-title"
+        >
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">THE COLLECTION</span>
+              <h2 id="topics-title">Your DSA roadmap</h2>
+            </div>
+            <div class="topic-tools">
+              <label class="search-box"
+                ><span>⌕</span
+                ><input
+                  id="searchInput"
+                  type="search"
+                  placeholder="Find a topic..."
+                  aria-label="Find a topic" /></label
+              ><select id="filterSelect" aria-label="Filter topics">
+                <option value="all">All topics</option>
+                <option value="active">In progress</option>
+                <option value="done">Completed</option>
+                <option value="todo">Not started</option>
+              </select>
+            </div>
+          </div>
+          <div class="topic-grid" id="topicGrid"></div>
+          <p class="empty-state" id="emptyState" hidden>
+            No topics match your search.
+          </p>
+        </section>
+        <section class="roadmap-band" id="roadmap">
+          <div>
+            <span class="section-kicker">A SIMPLE RHYTHM</span>
+            <h2>Learn, revisit, retain.</h2>
+            <p>
+              Mark a topic complete after you can explain the pattern, code it
+              from scratch, and solve one variation.
+            </p>
+          </div>
+          <div class="rhythm-steps">
+            <span><b>01</b> Understand</span><span><b>02</b> Implement</span
+            ><span><b>03</b> Revisit</span>
+          </div>
+        </section>
+        <footer>
+          Made for focused practice <span>·</span> progress stays on your device
+        </footer>
+      </main>
+    </div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
