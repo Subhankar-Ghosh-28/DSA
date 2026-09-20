@@ -2,6 +2,7 @@ const runnerBase =
   window.location.protocol === "file:" ? "http://localhost:4173" : "";
 const params = new URLSearchParams(window.location.search);
 const folder = params.get("folder") || "01-pattern";
+const requestedFile = params.get("file");
 const $ = (selector) => document.querySelector(selector);
 const progressKey = "striver-dsa-file-progress";
 let files = [];
@@ -243,7 +244,8 @@ async function loadTopic() {
   $("#topicTitle").textContent = name;
   $("#topicSubtitle").textContent = subtitle;
   renderList();
-  if (files[0]) chooseFile(files[0]);
+  const initialFile = files.find((file) => file.path === requestedFile) || files[0];
+  if (initialFile) await chooseFile(initialFile);
 }
 
 $("#problemSearch").addEventListener("input", renderList);

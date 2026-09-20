@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../styles/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,10 +29,7 @@
           <a class="nav-link" href="#roadmap"
             ><span class="nav-icon">↗</span>Roadmap</a
           >
-          <a class="nav-link" href="#file-tracker"
-            ><span class="nav-icon">☷</span>Files</a
-          >
-          <a class="nav-link" href="#code-runner"
+          <a class="nav-link" href="runner.html"
             ><span class="nav-icon">▶</span>Runner</a
           >
         </nav>
@@ -50,9 +47,13 @@
             <p class="eyebrow">STUDY CONSOLE / <span id="todayLabel"></span></p>
             <h1>Build the habit.<br /><em>Master the patterns.</em></h1>
           </div>
-          <button class="reset-button" id="resetProgress" type="button">
-            ↺ <span>Reset progress</span>
-          </button>
+          <div class="topbar-actions">
+            <div class="global-search-wrap">
+              <label class="global-search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search topics or files..." aria-label="Search topics or files" /></label>
+              <div class="global-results" id="globalResults" hidden></div>
+            </div>
+            <button class="reset-button" id="resetProgress" type="button">↺ <span>Reset progress</span></button>
+          </div>
         </header>
         <section
           class="hero-progress"
@@ -137,33 +138,6 @@
             No topics match your search.
           </p>
         </section>
-        <section class="workspace-section" id="file-tracker" aria-labelledby="file-tracker-title">
-          <div class="section-heading">
-            <div>
-              <span class="section-kicker">EVERY SOURCE FILE</span>
-              <h2 id="file-tracker-title">File tracker</h2>
-            </div>
-            <div class="topic-tools">
-              <label class="search-box"><span>⌕</span><input id="fileSearchInput" type="search" placeholder="Find a file..." aria-label="Find a source file"></label>
-              <select id="fileFilterSelect" aria-label="Filter files"><option value="all">All files</option><option value="done">Completed</option><option value="todo">Not started</option></select>
-            </div>
-          </div>
-          <div class="file-summary"><strong id="fileCompletedCount">0</strong> of <span id="fileTotalCount">0</span> files reviewed <div class="progress-track"><span id="fileProgress"></span></div><span id="filePercent">0%</span></div>
-          <div class="file-list" id="fileList"><p class="loading-state">Loading your source files...</p></div>
-        </section>
-        <section class="runner-section" id="code-runner" aria-labelledby="runner-title">
-          <div class="section-heading">
-            <div><span class="section-kicker">LOCAL C++ WORKBENCH</span><h2 id="runner-title">Run a file</h2></div>
-            <span class="runner-note">Requires the local runner server</span>
-          </div>
-          <div class="runner-grid">
-            <div class="runner-editor">
-              <div class="runner-toolbar"><select id="runnerFileSelect" aria-label="Choose a file"><option>Loading files...</option></select><button id="runCodeButton" class="run-button" type="button">▶ Run</button></div>
-              <textarea id="codeEditor" spellcheck="false" aria-label="C++ code editor" placeholder="Choose a C++ file to load its code..."></textarea>
-            </div>
-            <div class="output-panel"><div class="output-heading"><span>OUTPUT</span><button id="clearOutput" type="button">Clear</button></div><pre id="runnerOutput">Select a file, then press Run.</pre></div>
-          </div>
-        </section>
         <section class="roadmap-band" id="roadmap">
           <div>
             <span class="section-kicker">A SIMPLE RHYTHM</span>
@@ -183,6 +157,6 @@
         </footer>
       </main>
     </div>
-    <script src="script.js"></script>
+    <script src="../scripts/script.js"></script>
   </body>
 </html>

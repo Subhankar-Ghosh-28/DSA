@@ -72,7 +72,17 @@ const server = http.createServer((request, response) => {
     });
     return;
   }
-  const requested = requestUrl.pathname === "/" ? "/vision/index.html" : requestUrl.pathname;
+  const aliases = {
+    "/": "/vision/pages/index.html",
+    "/vision/": "/vision/pages/index.html",
+    "/vision/index.html": "/vision/pages/index.html",
+    "/vision/topic.html": "/vision/pages/topic.html",
+    "/vision/runner.html": "/vision/pages/runner.html",
+  };
+  const assetAlias = requestUrl.pathname.startsWith("/styles/") || requestUrl.pathname.startsWith("/scripts/")
+    ? `/vision/${requestUrl.pathname.slice(1)}`
+    : requestUrl.pathname;
+  const requested = aliases[requestUrl.pathname] || assetAlias;
   let filePath = path.resolve(workspaceRoot, `.${requested}`);
   if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) filePath = path.join(filePath, "index.html");
   if (!filePath.startsWith(workspaceRoot) || !fs.existsSync(filePath)) return send(response, 404, "Not found", "text/plain");
