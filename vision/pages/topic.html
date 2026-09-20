@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/style.css" />
-    <link rel="stylesheet" href="../styles/topic.css" />
+    <link rel="stylesheet" href="../styles/topic.css?v=2" />
     <title>DSA topic workspace</title>
   </head>
   <body class="topic-page">
@@ -59,6 +59,11 @@
             </p>
           </article>
         </div>
+        <section class="topic-tracking" aria-labelledby="tracking-title">
+          <div class="tracking-heading"><div><span class="mini-label">TOPIC TRACKING</span><h3 id="tracking-title">Your progress in this folder</h3></div><strong><span id="trackingPercent">0%</span> complete</strong></div>
+          <div class="tracking-bar"><span id="trackingProgress"></span></div>
+          <div class="tracking-stats"><span><strong id="trackingReviewed">0</strong> reviewed</span><span><strong id="trackingRemaining">0</strong> remaining</span><span><strong id="trackingTotal">0</strong> total files</span></div>
+        </section>
         <div class="code-workspace">
           <div class="code-toolbar">
             <button
@@ -71,25 +76,13 @@
               <span class="toggle-icon">+</span
               ><span id="selectedPath">No file selected</span>
             </button>
-            <div class="code-actions">
-              <span class="code-state" id="codeState">Code collapsed</span
-              ><button id="runTopicCode" class="run-button" type="button">
-                ▶ Run file
-              </button>
-            </div>
+            <div class="code-actions"><span class="code-state" id="codeState">Code collapsed</span></div>
           </div>
           <textarea
             id="topicEditor"
             spellcheck="false"
             aria-label="Selected source code"
           ></textarea>
-        </div>
-        <div class="topic-output">
-          <div class="output-heading">
-            <span>PROGRAM OUTPUT</span
-            ><button id="clearTopicOutput" type="button">Clear</button>
-          </div>
-          <pre id="topicOutput">Run the selected file to see its output.</pre>
         </div>
       </section>
     </main>

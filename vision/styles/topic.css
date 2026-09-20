@@ -247,6 +247,10 @@
   line-height: 1.6;
   margin: 11px 0 0;
 }
+.topic-tracking { margin: 14px 0; padding: 17px 18px; border: 1px solid #dfe7df; border-radius: 8px; background: #fff; }
+.tracking-heading { display:flex; align-items:center; justify-content:space-between; gap:15px; }.tracking-heading h3 { margin:5px 0 0; font-size:14px; letter-spacing:-.2px; }.tracking-heading > strong { color:#26715b; font:11px "DM Mono",monospace; white-space:nowrap; }
+.tracking-bar { height:7px; margin:16px 0 10px; overflow:hidden; border-radius:20px; background:#e6eee7; }.tracking-bar span { display:block; width:0; height:100%; border-radius:inherit; background:#26715b; transition:width .35s ease; }
+.tracking-stats { display:flex; gap:22px; color:#71807b; font:10px "DM Mono",monospace; }.tracking-stats strong { color:#17211f; margin-right:4px; }
 .code-workspace,
 .topic-output {
   overflow: hidden;
@@ -275,21 +279,25 @@
 .code-toolbar .run-button {
   flex: none;
 }
-.topic-editor {
+#topicEditor {
   display: block;
   width: 100%;
-  min-height: 390px;
+  height: 440px;
+  min-height: 440px;
+  max-height: 440px;
   padding: 17px;
-  resize: vertical;
+  resize: none;
   border: 0;
   outline: 0;
-  color: #d9eddb;
-  background: #142b25;
+  color: #d4d4d4;
+  caret-color: #aeafad;
+  background: #1e1e1e;
   font:
     12px/1.65 "DM Mono",
     monospace;
   tab-size: 4;
 }
+#topicEditor::selection { color:#fff; background:#264f78; }
 .topic-output {
   margin-top: 14px;
 }

@@ -244,6 +244,18 @@ function renderList() {
     (file) => reviewed[file.path],
   ).length;
   $("#topicTotal").textContent = files.length;
+  updateTracking();
+}
+
+function updateTracking() {
+  const reviewedCount = files.filter((file) => reviewed[file.path]).length;
+  const total = files.length;
+  const percent = total ? Math.round((reviewedCount / total) * 100) : 0;
+  $("#trackingReviewed").textContent = reviewedCount;
+  $("#trackingRemaining").textContent = total - reviewedCount;
+  $("#trackingTotal").textContent = total;
+  $("#trackingPercent").textContent = `${percent}%`;
+  $("#trackingProgress").style.width = `${percent}%`;
 }
 
 async function chooseFile(file) {
@@ -299,32 +311,6 @@ $("#reviewedCheck").addEventListener("change", (event) => {
   else delete reviewed[selectedFile.path];
   localStorage.setItem(progressKey, JSON.stringify(reviewed));
   renderList();
-});
-$("#clearTopicOutput").addEventListener("click", () => {
-  $("#topicOutput").textContent = "Output cleared.";
-});
-$("#runTopicCode").addEventListener("click", async () => {
-  if (!selectedFile) return;
-  const button = $("#runTopicCode");
-  button.disabled = true;
-  $("#topicOutput").textContent = "Compiling and running...";
-  try {
-    const response = await fetch(`${runnerBase}/api/run`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        path: selectedFile.path,
-        code: $("#topicEditor").value,
-      }),
-    });
-    const result = await response.json();
-    $("#topicOutput").textContent =
-      result.output || result.error || "Program finished with no output.";
-  } catch (error) {
-    $("#topicOutput").textContent =
-      "Runner server is offline. Start: node vision/runner-server.js";
-  }
-  button.disabled = false;
 });
 loadTopic().catch(() => {
   $("#problemList").innerHTML =
