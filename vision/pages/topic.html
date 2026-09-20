@@ -61,10 +61,22 @@
         </div>
         <div class="code-workspace">
           <div class="code-toolbar">
-            <span id="selectedPath">No file selected</span
-            ><button id="runTopicCode" class="run-button" type="button">
-              ▶ Run file
+            <button
+              id="codeToggle"
+              class="code-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="topicEditor"
+            >
+              <span class="toggle-icon">+</span
+              ><span id="selectedPath">No file selected</span>
             </button>
+            <div class="code-actions">
+              <span class="code-state" id="codeState">Code collapsed</span
+              ><button id="runTopicCode" class="run-button" type="button">
+                ▶ Run file
+              </button>
+            </div>
           </div>
           <textarea
             id="topicEditor"

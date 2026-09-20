@@ -198,6 +198,35 @@ function getConcept(file) {
   );
 }
 
+function displayProblemName(file) {
+  const stem = file.name.replace(/\.[^.]+$/, "").replace(/^\d+[._-]*/, "");
+  const spaced = stem
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+  const replacements = {
+    rat: "right angle triangle",
+    ratnum: "right angle triangle number",
+    ll: "linked list",
+    bt: "binary tree",
+    bst: "binary search tree",
+    nge: "next greater element",
+    nse: "next smaller element",
+    lca: "lowest common ancestor",
+    atoi: "string to integer",
+    jsp: "job sequencing problem",
+  };
+  let title = replacements[spaced] || spaced;
+  if (
+    folder === "02-sorting" &&
+    /^(bubble|insertion|selection|merge|quick)( sort)?$/.test(title)
+  )
+    title = `${title.replace(/ sort$/, "")} sort`;
+  return title.replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
 function renderList() {
   const query = $("#problemSearch").value.toLowerCase();
   const visible = files.filter((file) =>
@@ -207,7 +236,7 @@ function renderList() {
     ? visible
         .map(
           (file) =>
-            `<button class="problem-item ${reviewed[file.path] ? "done" : ""} ${selectedFile?.path === file.path ? "selected" : ""}" data-path="${file.path}"><strong>${file.name}</strong><small>${reviewed[file.path] ? "Reviewed" : "Ready to study"}</small></button>`,
+            `<button class="problem-item ${reviewed[file.path] ? "done" : ""} ${selectedFile?.path === file.path ? "selected" : ""}" data-path="${file.path}"><strong class="file-name">${displayProblemName(file)}</strong><small>${file.name} · ${reviewed[file.path] ? "Reviewed" : "Ready to study"}</small></button>`,
         )
         .join("")
     : "<p class='loading-state'>No matching files.</p>";
@@ -224,12 +253,18 @@ async function chooseFile(file) {
   );
   $("#topicEditor").value = await response.text();
   const concept = getConcept(file);
-  $("#problemTitle").textContent = file.name.replace(/\.[^.]+$/, "");
+  $("#problemTitle").textContent = displayProblemName(file);
   $("#selectedPath").textContent = file.path;
   $("#problemDescription").textContent = concept.problem;
   $("#problemSolution").textContent = concept.solution;
   $("#reviewedCheck").checked = Boolean(reviewed[file.path]);
   renderList();
+}
+
+function setCodeExpanded(expanded) {
+  $(".code-workspace").classList.toggle("is-expanded", expanded);
+  $("#codeToggle").setAttribute("aria-expanded", String(expanded));
+  $("#codeState").textContent = expanded ? "Code expanded" : "Code collapsed";
 }
 
 async function loadTopic() {
@@ -244,11 +279,15 @@ async function loadTopic() {
   $("#topicTitle").textContent = name;
   $("#topicSubtitle").textContent = subtitle;
   renderList();
-  const initialFile = files.find((file) => file.path === requestedFile) || files[0];
+  const initialFile =
+    files.find((file) => file.path === requestedFile) || files[0];
   if (initialFile) await chooseFile(initialFile);
 }
 
 $("#problemSearch").addEventListener("input", renderList);
+$("#codeToggle").addEventListener("click", () => {
+  setCodeExpanded(!$(".code-workspace").classList.contains("is-expanded"));
+});
 $("#problemList").addEventListener("click", (event) => {
   const button = event.target.closest("[data-path]");
   if (button)

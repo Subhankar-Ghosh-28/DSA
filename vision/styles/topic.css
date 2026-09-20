@@ -103,6 +103,10 @@
   white-space: nowrap;
   font-size: 11px;
 }
+.problem-item .file-name {
+  font-size: 12px;
+  font-weight: 700;
+}
 .problem-item small {
   display: block;
   color: #71807b;
@@ -110,6 +114,60 @@
     9px "DM Mono",
     monospace;
   margin-top: 5px;
+}
+.code-toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  color: #d9eddb;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font:
+    10px "DM Mono",
+    monospace;
+}
+.toggle-icon {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #83a994;
+  border-radius: 4px;
+  color: #d9eddb;
+  font-size: 14px;
+  line-height: 1;
+}
+.code-toggle:hover .toggle-icon {
+  background: #2d594a;
+}
+.code-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+}
+.code-state {
+  color: #9fbaaa;
+  font-size: 9px;
+}
+.code-workspace.is-expanded .toggle-icon {
+  transform: rotate(45deg);
+}
+.code-workspace.is-expanded .code-state {
+  color: #d9eddb;
+}
+.code-workspace:not(.is-expanded) #topicEditor {
+  display: none;
+}
+.code-workspace:not(.is-expanded) {
+  border-radius: 9px;
+}
+.code-workspace.is-expanded #topicEditor {
+  display: block;
 }
 .problem-item.done strong {
   color: #6d8176;

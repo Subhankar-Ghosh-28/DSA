@@ -116,7 +116,8 @@ const topics = [
 const storageKey = "striver-dsa-progress";
 let progress = JSON.parse(localStorage.getItem(storageKey) || "{}");
 const $ = (selector) => document.querySelector(selector);
-const runnerBase = window.location.protocol === "file:" ? "http://localhost:4173" : "";
+const runnerBase =
+  window.location.protocol === "file:" ? "http://localhost:4173" : "";
 
 function completedProblems() {
   return Object.values(progress).reduce(
@@ -142,6 +143,32 @@ function updateStats() {
   $("#activeCount").textContent = `${Object.keys(progress).length} active`;
   $("#weekCount").textContent = `${completed} problems`;
   $("#streakCount").textContent = completed ? "1 day" : "0 days";
+}
+
+function displayFileName(file) {
+  const stem = file.name.replace(/\.[^.]+$/, "").replace(/^\d+[._-]*/, "");
+  let title = stem
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+  const aliases = {
+    rat: "right angle triangle",
+    ll: "linked list",
+    bst: "binary search tree",
+    nge: "next greater element",
+    nse: "next smaller element",
+    lca: "lowest common ancestor",
+    atoi: "string to integer",
+  };
+  title = aliases[title] || title;
+  if (
+    file.path.startsWith("02-sorting/") &&
+    /^(bubble|insertion|selection|merge|quick)$/.test(title)
+  )
+    title += " sort";
+  return title.replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 function renderTopics() {
@@ -204,7 +231,9 @@ function renderGlobalResults(query) {
   }
   const normalized = query.toLowerCase();
   const topicResults = topics
-    .filter((topic) => `${topic.name} ${topic.description}`.toLowerCase().includes(normalized))
+    .filter((topic) =>
+      `${topic.name} ${topic.description}`.toLowerCase().includes(normalized),
+    )
     .map((topic) => {
       const folder = topic.folder.replace(/^\.\.\//, "").replace(/\/$/, "");
       return `<a class="global-result" href="topic.html?folder=${encodeURIComponent(folder)}"><span class="result-icon">▦</span><span><strong>${topic.name}</strong><small>Topic workspace · ${topic.count} problems</small></span><b>↗</b></a>`;
@@ -212,18 +241,30 @@ function renderGlobalResults(query) {
   const fileResults = sourceFiles
     .filter((file) => file.path.toLowerCase().includes(normalized))
     .slice(0, 8)
-    .map((file) => `<a class="global-result" href="topic.html?folder=${encodeURIComponent(file.folder.replaceAll(" / ", "/"))}&file=${encodeURIComponent(file.path)}"><span class="result-icon">{ }</span><span><strong>${file.name}</strong><small>${file.path}</small></span><b>↗</b></a>`);
+    .map(
+      (file) =>
+        `<a class="global-result" href="topic.html?folder=${encodeURIComponent(file.folder.replaceAll(" / ", "/"))}&file=${encodeURIComponent(file.path)}"><span class="result-icon">{ }</span><span><strong>${displayFileName(file)}</strong><small>${file.path}</small></span><b>↗</b></a>`,
+    );
   const allResults = [...topicResults, ...fileResults];
-  results.innerHTML = allResults.length ? allResults.join("") : "<p class='no-results'>No topic or file found.</p>";
+  results.innerHTML = allResults.length
+    ? allResults.join("")
+    : "<p class='no-results'>No topic or file found.</p>";
   results.hidden = false;
 }
 
-$("#globalSearch").addEventListener("input", (event) => renderGlobalResults(event.target.value));
+$("#globalSearch").addEventListener("input", (event) =>
+  renderGlobalResults(event.target.value),
+);
 document.addEventListener("click", (event) => {
-  if (!event.target.closest(".global-search-wrap")) $("#globalResults").hidden = true;
+  if (!event.target.closest(".global-search-wrap"))
+    $("#globalResults").hidden = true;
 });
 
 fetch(`${runnerBase}/api/files`)
   .then((response) => response.json())
-  .then((files) => { sourceFiles = files; })
-  .catch(() => { sourceFiles = []; });
+  .then((files) => {
+    sourceFiles = files;
+  })
+  .catch(() => {
+    sourceFiles = [];
+  });
