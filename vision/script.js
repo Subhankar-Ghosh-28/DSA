@@ -116,6 +116,7 @@ const topics = [
 const storageKey = "striver-dsa-progress";
 let progress = JSON.parse(localStorage.getItem(storageKey) || "{}");
 const $ = (selector) => document.querySelector(selector);
+const runnerBase = window.location.protocol === "file:" ? "http://localhost:4173" : "";
 
 function completedProblems() {
   return Object.values(progress).reduce(
@@ -159,7 +160,8 @@ function renderTopics() {
   $("#topicGrid").innerHTML = visible
     .map((topic) => {
       const done = Boolean(progress[topic.id]?.done);
-      return `<article class="topic-card ${done ? "completed" : ""}"><div class="topic-top"><span class="topic-number">${String(topics.indexOf(topic) + 1).padStart(2, "0")}</span><span class="topic-status">${done ? "Complete" : progress[topic.id] ? "In progress" : "Not started"}</span></div><h3>${topic.name}</h3><p>${topic.description}</p><div class="topic-bottom"><a class="topic-link" href="${topic.folder}">Open folder ↗</a><label class="check-wrap"><input type="checkbox" data-topic="${topic.id}" ${done ? "checked" : ""}> Done</label></div></article>`;
+      const folder = topic.folder.replace(/^\.\.\//, "").replace(/\/$/, "");
+      return `<article class="topic-card ${done ? "completed" : ""}"><div class="topic-top"><span class="topic-number">${String(topics.indexOf(topic) + 1).padStart(2, "0")}</span><span class="topic-status">${done ? "Complete" : progress[topic.id] ? "In progress" : "Not started"}</span></div><h3>${topic.name}</h3><p>${topic.description}</p><div class="topic-bottom"><a class="topic-link" href="topic.html?folder=${encodeURIComponent(folder)}">Open workspace ↗</a><label class="check-wrap"><input type="checkbox" data-topic="${topic.id}" ${done ? "checked" : ""}> Done</label></div></article>`;
     })
     .join("");
   $("#emptyState").hidden = visible.length > 0;
@@ -192,7 +194,6 @@ $("#todayLabel").textContent = new Intl.DateTimeFormat("en", {
   .toUpperCase();
 renderTopics();
 
-const runnerBase = window.location.protocol === "file:" ? "http://localhost:4173" : "";
 const fileProgressKey = "striver-dsa-file-progress";
 let sourceFiles = [];
 let fileProgress = JSON.parse(localStorage.getItem(fileProgressKey) || "{}");

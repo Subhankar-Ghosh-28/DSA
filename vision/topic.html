@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="topic.css" />
+    <title>DSA topic workspace</title>
+  </head>
+  <body class="topic-page">
+    <header class="topic-header">
+      <a class="back-link" href="index.html">← Back to sheet</a>
+      <div>
+        <span class="section-kicker">FOLDER WORKSPACE</span>
+        <h1 id="topicTitle">Loading topic...</h1>
+        <p id="topicSubtitle"></p>
+      </div>
+      <div class="topic-count">
+        <strong id="topicCompleted">0</strong> / <span id="topicTotal">0</span
+        ><small>files reviewed</small>
+      </div>
+    </header>
+    <main class="topic-layout">
+      <aside class="problem-sidebar">
+        <div class="topic-search">
+          <span>⌕</span
+          ><input
+            id="problemSearch"
+            type="search"
+            placeholder="Find a problem..."
+            aria-label="Find a problem"
+          />
+        </div>
+        <div class="problem-list" id="problemList">
+          <p class="loading-state">Loading files...</p>
+        </div>
+      </aside>
+      <section class="problem-workspace">
+        <div class="problem-heading">
+          <div>
+            <span class="section-kicker">SELECTED PROBLEM</span>
+            <h2 id="problemTitle">Choose a file</h2>
+          </div>
+          <label class="review-toggle"
+            ><input id="reviewedCheck" type="checkbox" /> Mark reviewed</label
+          >
+        </div>
+        <div class="explanation-grid">
+          <article>
+            <span class="mini-label">PROBLEM DESCRIPTION</span>
+            <p id="problemDescription">
+              Select a source file to see what it is practicing.
+            </p>
+          </article>
+          <article>
+            <span class="mini-label">SOLUTION APPROACH</span>
+            <p id="problemSolution">
+              The key idea and complexity will appear here.
+            </p>
+          </article>
+        </div>
+        <div class="code-workspace">
+          <div class="code-toolbar">
+            <span id="selectedPath">No file selected</span
+            ><button id="runTopicCode" class="run-button" type="button">
+              ▶ Run file
+            </button>
+          </div>
+          <textarea
+            id="topicEditor"
+            spellcheck="false"
+            aria-label="Selected source code"
+          ></textarea>
+        </div>
+        <div class="topic-output">
+          <div class="output-heading">
+            <span>PROGRAM OUTPUT</span
+            ><button id="clearTopicOutput" type="button">Clear</button>
+          </div>
+          <pre id="topicOutput">Run the selected file to see its output.</pre>
+        </div>
+      </section>
+    </main>
+    <script src="topic.js"></script>
+  </body>
+</html>
