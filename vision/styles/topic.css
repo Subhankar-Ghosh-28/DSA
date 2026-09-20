@@ -81,19 +81,21 @@
   overflow-y: auto;
   padding-right: 5px;
 }
+.problem-item-shell { border:1px solid #dfe7df; border-radius:7px; background:#fff; overflow:hidden; }
+.problem-item-shell:has(.problem-item.selected), .problem-item-shell:hover { border-color:#26715b; background:#e7f3e9; }
 .problem-item {
   width: 100%;
   padding: 13px 14px;
-  border: 1px solid #dfe7df;
-  border-radius: 7px;
-  background: white;
+  border: 0;
+  border-bottom: 1px solid #edf1ed;
+  border-radius: 0;
+  background: transparent;
   color: #17211f;
   cursor: pointer;
   text-align: left;
 }
 .problem-item:hover,
 .problem-item.selected {
-  border-color: #26715b;
   background: #e7f3e9;
 }
 .problem-item strong {
@@ -115,6 +117,7 @@
     monospace;
   margin-top: 5px;
 }
+.file-progress-track { display:block; width:100%; height:4px; margin-top:9px; overflow:hidden; border-radius:10px; background:#e6eee7; }.file-progress-track span { display:block; height:100%; border-radius:inherit; background:#26715b; transition:width .35s ease; }
 .code-toggle {
   display: flex;
   align-items: center;

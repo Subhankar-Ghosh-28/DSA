@@ -236,7 +236,7 @@ function renderList() {
     ? visible
         .map(
           (file) =>
-            `<button class="problem-item ${reviewed[file.path] ? "done" : ""} ${selectedFile?.path === file.path ? "selected" : ""}" data-path="${file.path}"><strong class="file-name">${displayProblemName(file)}</strong><small>${file.name} · ${reviewed[file.path] ? "Reviewed" : "Ready to study"}</small></button>`,
+            `<div class="problem-item-shell"><button class="problem-item ${reviewed[file.path] ? "done" : ""} ${selectedFile?.path === file.path ? "selected" : ""}" data-path="${file.path}"><strong class="file-name">${displayProblemName(file)}</strong><small>${file.name}</small><span class="file-progress-track"><span style="width:${reviewed[file.path] ? "100" : "0"}%"></span></span></button></div>`,
         )
         .join("")
     : "<p class='loading-state'>No matching files.</p>";
