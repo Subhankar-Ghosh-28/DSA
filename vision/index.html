@@ -10,14 +10,14 @@
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>Striver's DSA sheet</title>
+    <title>Subha's DSA sheet</title>
   </head>
   <body>
     <div class="app-shell">
       <aside class="sidebar">
         <a class="brand" href="#top"
           ><span class="brand-mark">S</span
-          ><span><strong>striver</strong><small>DSA sheet</small></span></a
+          ><span><strong>Subha</strong><small>DSA sheet</small></span></a
         >
         <nav class="side-nav" aria-label="Main navigation">
           <a class="nav-link active" href="#overview"
@@ -28,6 +28,12 @@
           >
           <a class="nav-link" href="#roadmap"
             ><span class="nav-icon">↗</span>Roadmap</a
+          >
+          <a class="nav-link" href="#file-tracker"
+            ><span class="nav-icon">☷</span>Files</a
+          >
+          <a class="nav-link" href="#code-runner"
+            ><span class="nav-icon">▶</span>Runner</a
           >
         </nav>
         <div class="sidebar-footer">
@@ -130,6 +136,33 @@
           <p class="empty-state" id="emptyState" hidden>
             No topics match your search.
           </p>
+        </section>
+        <section class="workspace-section" id="file-tracker" aria-labelledby="file-tracker-title">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">EVERY SOURCE FILE</span>
+              <h2 id="file-tracker-title">File tracker</h2>
+            </div>
+            <div class="topic-tools">
+              <label class="search-box"><span>⌕</span><input id="fileSearchInput" type="search" placeholder="Find a file..." aria-label="Find a source file"></label>
+              <select id="fileFilterSelect" aria-label="Filter files"><option value="all">All files</option><option value="done">Completed</option><option value="todo">Not started</option></select>
+            </div>
+          </div>
+          <div class="file-summary"><strong id="fileCompletedCount">0</strong> of <span id="fileTotalCount">0</span> files reviewed <div class="progress-track"><span id="fileProgress"></span></div><span id="filePercent">0%</span></div>
+          <div class="file-list" id="fileList"><p class="loading-state">Loading your source files...</p></div>
+        </section>
+        <section class="runner-section" id="code-runner" aria-labelledby="runner-title">
+          <div class="section-heading">
+            <div><span class="section-kicker">LOCAL C++ WORKBENCH</span><h2 id="runner-title">Run a file</h2></div>
+            <span class="runner-note">Requires the local runner server</span>
+          </div>
+          <div class="runner-grid">
+            <div class="runner-editor">
+              <div class="runner-toolbar"><select id="runnerFileSelect" aria-label="Choose a file"><option>Loading files...</option></select><button id="runCodeButton" class="run-button" type="button">▶ Run</button></div>
+              <textarea id="codeEditor" spellcheck="false" aria-label="C++ code editor" placeholder="Choose a C++ file to load its code..."></textarea>
+            </div>
+            <div class="output-panel"><div class="output-heading"><span>OUTPUT</span><button id="clearOutput" type="button">Clear</button></div><pre id="runnerOutput">Select a file, then press Run.</pre></div>
+          </div>
         </section>
         <section class="roadmap-band" id="roadmap">
           <div>

@@ -191,3 +191,91 @@ $("#todayLabel").textContent = new Intl.DateTimeFormat("en", {
   .format(new Date())
   .toUpperCase();
 renderTopics();
+
+const runnerBase = window.location.protocol === "file:" ? "http://localhost:4173" : "";
+const fileProgressKey = "striver-dsa-file-progress";
+let sourceFiles = [];
+let fileProgress = JSON.parse(localStorage.getItem(fileProgressKey) || "{}");
+
+function updateFileStats() {
+  const completed = Object.values(fileProgress).filter(Boolean).length;
+  const total = sourceFiles.length;
+  const percent = total ? Math.round((completed / total) * 100) : 0;
+  $("#fileCompletedCount").textContent = completed;
+  $("#fileTotalCount").textContent = total;
+  $("#filePercent").textContent = `${percent}%`;
+  $("#fileProgress").style.width = `${percent}%`;
+}
+
+function renderFiles() {
+  const query = $("#fileSearchInput").value.toLowerCase();
+  const filter = $("#fileFilterSelect").value;
+  const visible = sourceFiles.filter((file) => {
+    const done = Boolean(fileProgress[file.path]);
+    return file.path.toLowerCase().includes(query) &&
+      (filter === "all" || (filter === "done" && done) || (filter === "todo" && !done));
+  });
+  $("#fileList").innerHTML = visible.length ? visible.map((file, index) => `
+    <div class="file-row">
+      <span class="file-index">${String(index + 1).padStart(3, "0")}</span>
+      <span class="file-name" title="${file.path}">${file.name}</span>
+      <span class="file-folder">${file.folder}</span>
+      <a class="file-open" href="${runnerBase}/api/file?path=${encodeURIComponent(file.path)}" target="_blank">Open ↗</a>
+      <label class="file-check"><input type="checkbox" data-file="${file.path}" ${fileProgress[file.path] ? "checked" : ""}> Reviewed</label>
+    </div>`).join("") : "<p class='loading-state'>No files match this filter.</p>";
+  updateFileStats();
+}
+
+async function loadSourceFiles() {
+  try {
+    const response = await fetch(`${runnerBase}/api/files`);
+    if (!response.ok) throw new Error("Runner server unavailable");
+    sourceFiles = await response.json();
+    $("#runnerFileSelect").innerHTML = sourceFiles.map((file) => `<option value="${file.path}">${file.path}</option>`).join("");
+    renderFiles();
+    await loadSelectedFile();
+  } catch (error) {
+    $("#fileList").innerHTML = "<p class='loading-state'>Start the runner with <strong>node vision/runner-server.js</strong> to discover and run every file.</p>";
+    $("#runnerFileSelect").innerHTML = "<option>Runner server is offline</option>";
+    $("#runnerOutput").textContent = "Runner server is offline. Start it from the workspace root with: node vision/runner-server.js";
+  }
+}
+
+async function loadSelectedFile() {
+  const path = $("#runnerFileSelect").value;
+  if (!path || !path.includes(".")) return;
+  const response = await fetch(`${runnerBase}/api/file?path=${encodeURIComponent(path)}`);
+  $("#codeEditor").value = await response.text();
+}
+
+$("#fileSearchInput").addEventListener("input", renderFiles);
+$("#fileFilterSelect").addEventListener("change", renderFiles);
+$("#fileList").addEventListener("change", (event) => {
+  if (!event.target.matches("input[data-file]")) return;
+  const path = event.target.dataset.file;
+  if (event.target.checked) fileProgress[path] = true;
+  else delete fileProgress[path];
+  localStorage.setItem(fileProgressKey, JSON.stringify(fileProgress));
+  updateFileStats();
+});
+$("#runnerFileSelect").addEventListener("change", loadSelectedFile);
+$("#clearOutput").addEventListener("click", () => { $("#runnerOutput").textContent = "Output cleared."; });
+$("#runCodeButton").addEventListener("click", async () => {
+  const button = $("#runCodeButton");
+  button.disabled = true;
+  $("#runnerOutput").textContent = "Compiling and running...";
+  try {
+    const response = await fetch(`${runnerBase}/api/run`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ path: $("#runnerFileSelect").value, code: $("#codeEditor").value }),
+    });
+    const result = await response.json();
+    $("#runnerOutput").textContent = result.output || result.error || "Program finished with no output.";
+  } catch (error) {
+    $("#runnerOutput").textContent = "Could not connect to the runner server. Start: node vision/runner-server.js";
+  } finally {
+    button.disabled = false;
+  }
+});
+loadSourceFiles();

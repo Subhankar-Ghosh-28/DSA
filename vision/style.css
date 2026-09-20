@@ -494,6 +494,69 @@ footer {
 footer span {
   margin: 0 7px;
 }
+.workspace-section,
+.runner-section {
+  margin-top: 68px;
+}
+.file-summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  margin-bottom: 18px;
+}
+.file-summary strong,
+.file-summary > span:last-child {
+  color: var(--green);
+}
+.file-summary .progress-track {
+  width: 130px;
+  height: 5px;
+  margin-left: 8px;
+}
+.file-list {
+  display: grid;
+  gap: 7px;
+  max-height: 430px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+.file-row {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto auto;
+  gap: 12px;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 11px 14px;
+}
+.file-row:hover { border-color: #a9bcb0; }
+.file-index { color: #9aa9a0; font-family: "DM Mono", monospace; font-size: 9px; }
+.file-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; font-weight: 600; }
+.file-folder { color: var(--muted); font-family: "DM Mono", monospace; font-size: 9px; }
+.file-open,
+.file-check { color: var(--green); cursor: pointer; font-size: 10px; font-weight: 700; }
+.file-check { display: flex; align-items: center; gap: 6px; font-weight: 500; color: var(--muted); }
+.file-check input { appearance: none; width: 15px; height: 15px; border: 1px solid #bccbc0; border-radius: 4px; cursor: pointer; }
+.file-check input:checked { background: var(--green); border-color: var(--green); }
+.file-check input:checked::after { content: "✓"; color: white; display: grid; place-items: center; height: 100%; font-size: 9px; }
+.loading-state,
+.runner-note { color: var(--muted); font-size: 11px; }
+.runner-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr); gap: 13px; }
+.runner-editor,
+.output-panel { overflow: hidden; border: 1px solid #294c40; border-radius: 9px; background: #142b25; }
+.runner-toolbar,
+.output-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; background: #1d3d35; }
+.runner-toolbar select { min-width: 0; flex: 1; border: 0; outline: 0; color: #dbeade; background: transparent; font-family: "DM Mono", monospace; font-size: 10px; }
+.run-button { border: 0; border-radius: 5px; background: #b9e3c3; color: #1d3d35; cursor: pointer; padding: 7px 12px; font-size: 11px; font-weight: 800; }
+.run-button:disabled { cursor: wait; opacity: .6; }
+#codeEditor { display: block; width: 100%; min-height: 390px; resize: vertical; border: 0; outline: 0; padding: 17px; color: #d9eddb; background: #142b25; font: 12px/1.65 "DM Mono", monospace; tab-size: 4; }
+.output-heading { color: #9fbaaa; font: 10px "DM Mono", monospace; letter-spacing: 1px; }
+.output-heading button { border: 0; background: transparent; color: #9fbaaa; cursor: pointer; font-size: 10px; }
+#runnerOutput { min-height: 390px; max-height: 450px; overflow: auto; margin: 0; padding: 17px; color: #d9eddb; white-space: pre-wrap; font: 11px/1.6 "DM Mono", monospace; }
 @media (max-width: 900px) {
   .sidebar {
     width: 74px;
@@ -602,4 +665,10 @@ footer span {
   .brand {
     margin-bottom: 45px;
   }
+  .runner-grid { grid-template-columns: 1fr; }
+  .runner-note { display: none; }
+  .file-row { grid-template-columns: 23px minmax(0, 1fr) auto; }
+  .file-folder { display: none; }
+  .file-open { display: none; }
+  .file-summary { flex-wrap: wrap; }
 }
