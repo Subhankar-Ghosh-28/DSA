@@ -67,7 +67,7 @@ class Solution
         {
             if (!isLeaf(curr))
                 temp.push_back(curr->data);
-            if (curr->left)
+            if (curr->right)
                 curr = curr->right;
             else
                 curr = curr->left;
