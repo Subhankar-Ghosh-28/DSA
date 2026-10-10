@@ -5,11 +5,11 @@ using namespace std;
 
 vector<int> bfs(int v, vector<int> adj[])
 {
-    int vis[v] = {0};
+    int vis[v + 1] = {0};
 
-    vis[0] = 1;
+    vis[1] = 1;
     queue<int> q;
-    q.push(0);
+    q.push(1);
     vector<int> bfs;
 
     while (!q.empty())
