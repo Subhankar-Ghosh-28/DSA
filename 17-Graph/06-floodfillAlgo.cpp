@@ -29,13 +29,16 @@ vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int ne
     int n = image.size();
     int m = image[0].size();
 
-    int initalColor = image[sr][sc];
+    int initial = image[sr][sc];
+
+    if (initial == newColor)
+            return image;
 
     vector<vector<int>> ans = image;
     int deltaRow[] = {-1, 0, 1, 0};
     int deltaCol[] = {0, 1, 0, -1};
 
-    dfs(sr, sc, ans, image, newColor, deltaRow, deltaCol, initalColor);
+    dfs(sr, sc, ans, image, newColor, deltaRow, deltaCol, initial);
     return ans;
 
     // TC-> O(N * M * 4)
